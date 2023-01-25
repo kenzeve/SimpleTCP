@@ -1,0 +1,16 @@
+{
+  "name": "kenzeve/simple-tcp",
+  "type": "project",
+  "scripts": {
+    "phpstan": "vendor/bin/phpstan"
+  },
+  "autoload": {
+    "psr-4": {
+      "kenzeve\\SimpleTCP\\": "src/kenzeve/SimpleTCP"
+    }
+  },
+  "require-dev": {
+    "pocketmine/pocketmine-mp": "^4.0.0",
+    "phpstan/phpstan": "^1.9"
+  }
+}

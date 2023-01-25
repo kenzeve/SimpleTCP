@@ -1,0 +1,10 @@
+--- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/kenzeve/SimpleTCP
+build-by-default: true
+branches:
+- main
+projects:
+  SimpleTCP:
+    path: ""
+    model: virion
+    type: library
+...
