@@ -16,7 +16,7 @@ class CustomSession extends Session{
 
 	public function handlePacket(string $packet) : void{
 		//packet handling stuff here
-		//now I just send back packet from client
+		//now I just send back packet I got from client
 		$this->write($packet);
 	}
 }
