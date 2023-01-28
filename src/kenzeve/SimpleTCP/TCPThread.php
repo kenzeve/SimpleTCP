@@ -71,27 +71,6 @@ class TCPThread extends Thread{
 		while(!$this->stop){
 			$close = [];
 
-			while(($buf = $this->readExternal()) !== null){
-				$stream = new BinaryStream($buf);
-				switch($stream->getByte()){
-					case Signal::WRITE:
-						$id = $stream->getInt();
-						$packet = $stream->getRemaining();
-						$client = $clients[$id];
-						if(!isset($close[$id])){
-							socket_write($client, $packet);
-						}
-						break;
-					case Signal::CLOSE:
-						$id = $stream->getInt();
-						$client = $clients[$id];
-						if(!isset($close[$id])){
-							$close[$id] = $client;
-						}
-						break;
-				}
-			}
-
 			$r = $clients;
 			$r["main"] = $this->socket;
 			$r["ipc"] = $this->ipcSocket;
@@ -126,6 +105,27 @@ class TCPThread extends Thread{
 						}
 						$this->doWriteInternal(chr(Signal::READ) . pack("N", $id) . $packet);
 					}
+				}
+			}
+
+			while(($buf = $this->readExternal()) !== null){
+				$stream = new BinaryStream($buf);
+				switch($stream->getByte()){
+					case Signal::WRITE:
+						$id = $stream->getInt();
+						$packet = $stream->getRemaining();
+						$client = $clients[$id];
+						if(!isset($close[$id])){
+							socket_write($client, $packet);
+						}
+						break;
+					case Signal::CLOSE:
+						$id = $stream->getInt();
+						$client = $clients[$id];
+						if(!isset($close[$id])){
+							$close[$id] = $client;
+						}
+						break;
 				}
 			}
 

@@ -163,6 +163,7 @@ class SimpleTCPServer implements NetworkInterface{
 			$session->close();
 		}else{
 			$this->writeExternal(chr(Signal::CLOSE) . pack("N", $id));
+			$this->notify();
 		}
 
 		unset($this->sessions[$id]);
